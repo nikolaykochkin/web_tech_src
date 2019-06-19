@@ -1,2 +1,2 @@
 gunicorn
-django==2.11
+django==2.1

@@ -12,3 +12,5 @@ pip install gunicorn
 
 gunicorn ask.wsgi -b 0.0.0.0:8000 --pid /tmp/gunicorn1.pid --daemon
 gunicorn hello:app -b 0.0.0.0:8080 --pid /tmp/gunicorn2.pid --daemon
+
+git clone https://github.com/nikolaykochkin/web_tech_src /home/box/web

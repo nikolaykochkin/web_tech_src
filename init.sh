@@ -13,7 +13,6 @@ sudo /etc/init.d/nginx restart
 
 sudo /etc/init.d/mysql start
 mysql -uroot -e "CREATE DATABASE ask;"
-mysql -uroot -e "CREATE USER 'box'@'localhost' IDENTIFIED BY '123';"
 mysql -uroot -e "GRANT ALL PRIVILEGES ON ask.* TO 'box'@'localhost' WITH GRANT OPTION;"
 
 #sudo ln -s /home/box/web/etc/gunicorn-wsgi.conf /etc/gunicorn.d/test-wsgi

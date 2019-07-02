@@ -24,7 +24,7 @@ def detail(request, question_id):
             form.save()
             return HttpResponseRedirect(reverse('qa:detail', args=[question.pk]))
     else:
-        form = AnswerForm(initial={'question': question.id})
+        form = AnswerForm(initial={'question': question})
     return render(request, 'qa/detail.html',
                   {'question': question,
                    'form': form})

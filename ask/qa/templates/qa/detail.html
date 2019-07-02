@@ -13,10 +13,13 @@
 {% endfor %}
 </ul>
 <br>
-<form action="{% url 'qa:detail' %}" method="post">
+{% for e in form.non_field_errors %}
+<div class="alert alert-danger">{{ e }}</div>
+{% endfor %}
+<form action="{% url 'qa:detail' question.id %}" method="post">
     {% csrf_token %}
     {{ form.as_ul }}
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Add answer" />
 </form>
 </body>
 </html>

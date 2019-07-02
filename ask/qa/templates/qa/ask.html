@@ -5,6 +5,9 @@
     <title>ask</title>
 </head>
 <body>
+{% for e in form.non_field_errors %}
+<div class="alert alert-danger">{{ e }}</div>
+{% endfor %}
 <form action="{% url 'qa:ask' %}" method="post">
     {% csrf_token %}
     {{ form.as_ul }}

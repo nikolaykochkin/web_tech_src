@@ -18,7 +18,16 @@ def index(request):
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'qa/detail.html', {'question': question})
+    if request.method == 'POST':
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('qa:detail', args=[question.pk]))
+    else:
+        form = AnswerForm()
+    return render(request, 'qa/detail.html',
+                  {'question': question,
+                   'form': form})
 
 
 def popular(request):
@@ -32,8 +41,8 @@ def ask(request):
     if request.method == 'POST':
         form = AskForm(request.POST)
         if form.is_valid():
-            q = form.save()
-            return HttpResponseRedirect(reverse('qa:detail', args=[q.pk]))
+            question = form.save()
+            return HttpResponseRedirect(reverse('qa:detail', args=[question.pk]))
     else:
         form = AskForm()
     return render(request, 'qa/ask.html', {'form': form})

@@ -12,5 +12,11 @@
     <li>{{ answer.text }}</li>
 {% endfor %}
 </ul>
+<br>
+<form action="{% url 'qa:detail' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input type="submit" value="Submit" />
+</form>
 </body>
 </html>

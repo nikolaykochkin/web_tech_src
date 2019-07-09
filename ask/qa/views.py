@@ -13,7 +13,7 @@ def index(request):
     new_list = Question.objects.new()
     paginator = Paginator(new_list, 10)
     questions = paginator.page(request.GET.get('page', 1))
-    return render(request, 'qa/index.html', {'questions': questions})
+    return render(request, 'qa/index.html', {'questions': questions, 'username': request.user})
 
 
 def detail(request, question_id):
@@ -27,14 +27,15 @@ def detail(request, question_id):
         form = AnswerForm(initial={'question': question})
     return render(request, 'qa/detail.html',
                   {'question': question,
-                   'form': form})
+                   'form': form,
+                   'username': request.user})
 
 
 def popular(request):
     new_list = Question.objects.popular()
     paginator = Paginator(new_list, 10)
     questions = paginator.page(request.GET.get('page', 1))
-    return render(request, 'qa/index.html', {'questions': questions})
+    return render(request, 'qa/index.html', {'questions': questions, 'username': request.user})
 
 
 def ask(request):
@@ -45,4 +46,4 @@ def ask(request):
             return HttpResponseRedirect(reverse('qa:detail', args=[question.pk]))
     else:
         form = AskForm()
-    return render(request, 'qa/ask.html', {'form': form})
+    return render(request, 'qa/ask.html', {'form': form, 'username': request.user})

@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>ask</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Ask Question // Ask{% endblock %}
+
+{% block content %}
+
 {% for e in form.non_field_errors %}
 <div class="alert alert-danger">{{ e }}</div>
 {% endfor %}
@@ -13,5 +12,4 @@
     {{ form.as_ul }}
     <input type="submit" value="Submit" />
 </form>
-</body>
-</html>
+{% endblock %}

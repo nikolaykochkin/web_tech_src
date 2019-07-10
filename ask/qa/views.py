@@ -22,6 +22,8 @@ def detail(request, question_id):
     if request.method == 'POST':
         form = AnswerForm(request.POST)
         if form.is_valid():
+            form._user = request.user
+            form.question = question
             form.save()
             return HttpResponseRedirect(reverse('qa:detail', args=[question.pk]))
     else:
@@ -43,6 +45,7 @@ def ask(request):
     if request.method == 'POST':
         form = AskForm(request.POST)
         if form.is_valid():
+            form._user = request.user
             question = form.save()
             return HttpResponseRedirect(reverse('qa:detail', args=[question.pk]))
     else:

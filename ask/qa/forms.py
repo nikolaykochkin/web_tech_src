@@ -22,6 +22,8 @@ class AskForm(forms.Form):
         return text
 
     def save(self):
+        if not self._user.is_anonymous:
+            self.cleaned_data['author'] = self._user
         q = Question(**self.cleaned_data)
         q.save()
         return q
@@ -29,14 +31,13 @@ class AskForm(forms.Form):
 
 class AnswerForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)  # поле текста    ответа
-    question = forms.ModelChoiceField(Question.objects.all())  # поле для связи с вопросом
 
-    def clean_question(self):
-        question = self.cleaned_data['question']
-        if question == 0:
-            raise forms.ValidationError(
-                u'Title is empty', code='validation_error')
-        return question
+    #def clean_question(self):
+    #    question = self.cleaned_data['question']
+    #    if question == 0:
+    #        raise forms.ValidationError(
+    #            u'Title is empty', code='validation_error')
+    #    return question
 
     def clean_text(self):
         text = self.cleaned_data['text']
@@ -46,6 +47,9 @@ class AnswerForm(forms.Form):
         return text
 
     def save(self):
+        if not self._user.is_anonymous:
+            self.cleaned_data['author'] = self._user
+        self.cleaned_data['question'] = self.question
         a = Answer(**self.cleaned_data)
         a.save()
         return a
